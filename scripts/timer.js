@@ -1,13 +1,13 @@
 (function() {
   // all the global constants (except for intervalID, which gets set later on, if it gets set)
-  var day = 86400000,
+  var dayInMilliSeconds = 86400000,
 
       birthday = new Date('11/10/2014 0:0 AM'),      
       intervalID;
 
   function check() {
-    var remaining = birthday - Date.now(),
-        remainingDays = Math.floor(remaining / day) + 1,
+    var remaining = birthday.getTime() - Date.now(),
+        remainingDays = Math.floor(remaining / dayInMilliSeconds) + 1,
         daySingularPlural = remainingDays >= 2 ? 'days' : 'day';
 
     if (remainingDays > 0) {
@@ -15,17 +15,18 @@
         if(!intervalID) {
             document.querySelector('#status-yes').setAttribute('hidden', 'true');
             // check again on the next day
+            var milliSecondsUntilMidnight = dayInMilliSeconds - (Date.now() % dayInMilliSeconds) + 1;
             window.setTimeout(function() {
                 // check every 24 hours from now on
                 intervalID = window.setInterval(function() {
                     check();
-                }, day);
+                }, dayInMilliSeconds);
                 // actually check now
                 check();
-            }, (Date.now() % day) + 1);
+            }, milliSecondsUntilMidnight);
         }
     }
-    else{
+    else {
         document.querySelector('#status-no').setAttribute('hidden', 'true');
         if(intervalID) {
             // when the page was loaded, it hasn't been ten years yet, so we have do do a little bit more work
