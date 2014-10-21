@@ -2,7 +2,7 @@
   // all the global constants (except for intervalID, which gets set later on, if it gets set)
   var dayInMilliSeconds = 86400000,
 
-      birthday = new Date('11/10/2014 0:0 AM'),      
+      birthday = new Date('11/09/2014 0:0 AM'),
       intervalID;
 
   function check() {
