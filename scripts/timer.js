@@ -15,7 +15,9 @@
         if(!intervalID) {
             document.querySelector('#status-yes').setAttribute('hidden', 'true');
             // check again on the next day
-            var milliSecondsUntilMidnight = dayInMilliSeconds - (Date.now() % dayInMilliSeconds) + 1;
+            var now = new Date();
+            var milliSecondsFromMidnight = now.getTime() - now.setHours(0,0,0,0);
+            var milliSecondsUntilMidnight = dayInMilliSeconds - milliSecondsFromMidnight;
             window.setTimeout(function() {
                 // check every 24 hours from now on
                 intervalID = window.setInterval(function() {
